@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { ConcertService } from './concert.service';
 import { CreateConcertDto } from './dto/create-concert.dto';
 import { UpdateConcertDto } from './dto/update-concert.dto';
@@ -17,18 +17,25 @@ export class ConcertController {
     return this.concertService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.concertService.findOne(+id);
+
+  @Get('noti')
+  findNoti() {
+    return this.concertService.findnoti();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateConcertDto: UpdateConcertDto) {
-    return this.concertService.update(+id, updateConcertDto);
+  @Put(':id')
+  update(@Param('id') id: number, @Body() updateConcertDto: UpdateConcertDto) {
+    return this.concertService.update(+id,updateConcertDto);
+  }
+
+  @Put('cancle/:id')
+  cancle(@Param('id') id:string,@Body() updateConcertDto: UpdateConcertDto){
+    return this.concertService.cancle(+id,updateConcertDto);
+
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.concertService.remove(+id);
+  delete(@Param('id') id: string) {
+    return this.concertService.delete(+id);
   }
 }
