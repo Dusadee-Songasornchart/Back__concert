@@ -23,12 +23,17 @@ export class ConcertController {
     return this.concertService.findnoti();
   }
 
-  @Put(':id')
+  @Get('num')
+  Allnum(){
+    return this.concertService.findnum();
+  }
+
+  @Put('reserve/:id')
   update(@Param('id') id: number, @Body() updateConcertDto: UpdateConcertDto) {
     return this.concertService.update(+id,updateConcertDto);
   }
 
-  @Put('cancle/:id')
+  @Put('cancel/:id')
   cancle(@Param('id') id:string,@Body() updateConcertDto: UpdateConcertDto){
     return this.concertService.cancle(+id,updateConcertDto);
 
