@@ -53,10 +53,11 @@ export class ConcertService {
     const { name, des, amount } = createConcertDto;
 
     if (!name || !des || !amount) {
-      return 'Incorrect format';
+      throw new Error('incorrect format');
+
     }
 
-    const newId = this.concerts.length + 1;
+    const newId = this.concerts[this.concerts.length-1].id+1;
     const user_reserves = [];
     this.concerts.push({
       id: newId,
@@ -65,7 +66,7 @@ export class ConcertService {
       amount,
       user_reserve: user_reserves,
     });
-    return `New concert created with ID ${newId}`;
+    return createConcertDto;
   }
 
   findAll() {
@@ -92,7 +93,7 @@ export class ConcertService {
     return {
       reserve_count: reserve_count,
       seat_count: seat_count,
-      cancel: cancel
+      cancel: cancel,
     };
   }
 
@@ -108,30 +109,42 @@ export class ConcertService {
   //2024-03-19T12:28:34.467Z
 
   timeformat(time: string) {
-    const split = time.split('T');
-    let date = split[0];
-    let times = split[1];
-    times = times.split('.')[0];
-    let datelist = date.split('-').reverse();
-    date = datelist.join('/');
-    const result = date + ' ' + times;
-    return result;
+    console.log(time);
+    const [date, timePM] = time.split(', ');
+    const [timen, period] = timePM.split(' ');
+    let lastitme = '';
+    if (period === 'PM') {
+      const [hour, minute, second] = timen.split(':').map(Number);
+      lastitme = `${hour + 12}:${minute < 10 ? '0' : ''}${minute}:${
+        second < 10 ? '0' : ''
+      }${second}`;
+    } else if (period === 'AM') {
+      const [hour, minute, second] = timen.split(':').map(Number);
+      lastitme = `${hour < 10 ? '0' : ''}${hour}:${
+        minute < 10 ? '0' : ''
+      }${minute}:${second < 10 ? '0' : ''}${second}`;
+    }
+    const [month, day, year] = date.split('/');
+    const lastdate = `${day}/${Number(month) < 10 ? '0' : ''}${month}/${year}`;
+    return lastdate + ' ' + lastitme;
   }
 
   update(id: number, updateConcertDto: UpdateConcertDto) {
     const { userid, username } = updateConcertDto;
-    console.log(userid,username)
+    console.log(userid, username);
     if (!userid || !username) {
-      return 'Incorrect format';
+      throw new Error('incorrect format');
     }
     const concert = this.concerts.find((concert) => concert.id === id);
-    const times = this.timeformat(new Date().toISOString());
+    const times = this.timeformat(
+      new Date().toLocaleString('en-US', { timeZone: 'Asia/Bangkok' })
+    );
     if (concert) {
       const isUserReserved = concert.user_reserve.some(
         (user) => user.userid === updateConcertDto.userid,
       );
       if (isUserReserved) {
-        return `400 Bad request`;
+        throw new Error('user reserved');
       }
       concert.user_reserve.push({ userid: userid, username: username });
       this.noti.push({
@@ -142,7 +155,7 @@ export class ConcertService {
       });
       return '200 OK';
     } else {
-      return `No concert found `;
+      throw new Error('not found Concert');
     }
   }
 
@@ -150,17 +163,19 @@ export class ConcertService {
     const { userid } = updateConcertDto;
     if (!userid) {
       console.log(userid);
-      return 'Incorrect format';
+      throw new Error('incorrect format');
     }
     const concert = this.concerts.find((concert) => concert.id === id);
     console.log('before', concert.user_reserve);
-    const times = this.timeformat(new Date().toISOString());
+    const times = this.timeformat(
+      new Date().toLocaleString('en-US', { timeZone: 'Asia/Bangkok' }),
+    );
     if (concert) {
       const isUserReserved = concert.user_reserve.some(
         (user) => user.userid === updateConcertDto.userid,
       );
       if (!isUserReserved) {
-        return `400 Bad request`;
+        throw new Error('user not reserved');
       }
       const usernamenoti = concert.user_reserve.find(
         (usernamen) => usernamen.userid === userid,
@@ -177,7 +192,7 @@ export class ConcertService {
       concert.user_reserve.splice(index, 1);
       return '200 OK';
     } else {
-      return `No concert found `;
+      throw new Error('not found Concert');
     }
   }
 
@@ -185,9 +200,9 @@ export class ConcertService {
     const index = this.concerts.findIndex((concert) => concert.id === id);
     if (index !== -1) {
       this.concerts.splice(index, 1);
-      return "200 OK";
+      return '200 OK';
     } else {
-      return `No concert found with ID ${id}`;
+      throw new Error('not found Concert');
     }
   }
 }
