@@ -51,6 +51,7 @@ export class ConcertService {
 
   create(createConcertDto: CreateConcertDto) {
     const { name, des, amount } = createConcertDto;
+    console.log(createConcertDto)
 
     if (!name || !des || !amount) {
       throw new Error('incorrect format');
@@ -109,7 +110,6 @@ export class ConcertService {
   //2024-03-19T12:28:34.467Z
 
   timeformat(time: string) {
-    console.log(time);
     const [date, timePM] = time.split(', ');
     const [timen, period] = timePM.split(' ');
     let lastitme = '';
@@ -131,7 +131,6 @@ export class ConcertService {
 
   update(id: number, updateConcertDto: UpdateConcertDto) {
     const { userid, username } = updateConcertDto;
-    console.log(userid, username);
     if (!userid || !username) {
       throw new Error('incorrect format');
     }
@@ -162,11 +161,9 @@ export class ConcertService {
   cancle(id: number, updateConcertDto: UpdateConcertDto) {
     const { userid } = updateConcertDto;
     if (!userid) {
-      console.log(userid);
       throw new Error('incorrect format');
     }
     const concert = this.concerts.find((concert) => concert.id === id);
-    console.log('before', concert.user_reserve);
     const times = this.timeformat(
       new Date().toLocaleString('en-US', { timeZone: 'Asia/Bangkok' }),
     );

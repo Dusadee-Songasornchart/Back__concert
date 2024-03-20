@@ -16,7 +16,8 @@ import { Request, Response } from 'express';
 
 @Controller('concert')
 export class ConcertController {
-  constructor(private readonly concertService: ConcertService) {}
+  constructor(private readonly concertService: ConcertService
+    ) {}
 
   @Post()
   create(@Body() createConcertDto: CreateConcertDto, @Res() res: Response) {

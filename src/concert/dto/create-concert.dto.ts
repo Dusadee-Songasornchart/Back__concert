@@ -5,5 +5,4 @@ export class CreateConcertDto {
     name: string;
     des: string;
     amount: string;
-    user_reserve: string[];
 }
