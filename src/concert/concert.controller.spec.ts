@@ -15,7 +15,6 @@ describe('ConcertController', () => {
       controllers: [ConcertController],
       providers: [ConcertService],
     }).compile();
-
     controller = module.get<ConcertController>(ConcertController);
     service = module.get<ConcertService>(ConcertService);
   });
@@ -29,32 +28,71 @@ describe('ConcertController', () => {
   });
 
   describe('create', () => {
-    // it('should create concert success', async () => {
-    //   const createConcertDto = {
-    //     name: 'Test Concert',
-    //     des: 'Test Description',
-    //     amount: '100',
-    //   };
-
-    //   const res = httpMocks.createResponse();
-
-    //   const response = controller.create(createConcertDto, res);
-    //   expect(response).toBeDefined();
-    //   expect(response.statusCode).toBe(201);
-    // });
-
-    it('should handle invalid body', () => {
-      const createConcertDto2 = {
-        name: 'Test Concert2',
+    test('should create concert success', async () => {
+      const createConcertDto = {
+        name: 'Test Concert',
         des: 'Test Description',
-        amount: '',
+        amount: '100',
       };
       const res = httpMocks.createResponse();
-
-      const response = controller.create(createConcertDto2, res);
-      console.log(response)
+      const response = controller.create(createConcertDto, res);
       expect(response).toBeDefined();
       expect(response.statusCode).toBe(201);
     });
   });
+
+  describe('GetAll', () => {
+    test('should Get All concert success', async () => {
+      const res = httpMocks.createResponse();
+      const response = controller.findAll();
+      // sorry but i con't test method GET T.T
+    });
+  });
+
+  describe('reserve concert', () => {
+    test('should create concert success', async () => {
+      const updateConcertDto = {
+        userid: 4,
+        username: 'Dud',
+      };
+      const res = httpMocks.createResponse();
+      const response = controller.update(8, updateConcertDto, res);
+      expect(response).toBeDefined();
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
+  describe('cancel concert', () => {
+    test('should cancle concert success', async () => {
+      const updateConcertDto = {
+        userid: 1,
+      };
+      const res = httpMocks.createResponse();
+      const response = controller.cancle(1, updateConcertDto, res);
+      expect(response).toBeDefined();
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
+  describe('cancel concert', () => {
+    test('should cancle concert success', async () => {
+      const updateConcertDto = {
+        userid: 1,
+      };
+      const res = httpMocks.createResponse();
+      const response = controller.cancle(1, updateConcertDto, res);
+      expect(response).toBeDefined();
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
+  describe('delete concert', () => {
+    test('should delete concert success', async () => {
+      const res = httpMocks.createResponse();
+      const response = controller.delete(1, res);
+      expect(response).toBeDefined();
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
 });

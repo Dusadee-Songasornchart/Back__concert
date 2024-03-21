@@ -66,7 +66,7 @@ export class ConcertController {
 
   @Put('cancel/:id')
   cancle(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateConcertDto: UpdateConcertDto,
     @Res() res: Response,
   ) {
@@ -85,7 +85,7 @@ export class ConcertController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string, @Res() res: Response) {
+  delete(@Param('id') id: number, @Res() res: Response) {
     try {
       const concert = this.concertService.delete(+id);
       return res.status(200).json(concert);

@@ -21,7 +21,7 @@ describe('ConcertService', () => {
   });
 
   describe('findAll', () => {
-    it('should return all concerts ', async () => {
+    test('should return all concerts ', async () => {
       const concerts = service.findAll();
       expect(concerts).toBeDefined();
       expect(Array.isArray(concerts)).toBeTruthy();
@@ -29,7 +29,7 @@ describe('ConcertService', () => {
   });
 
   describe('create', () => {
-    it('should create a new concert', async () => {
+    test('should create a new concert', async () => {
       const createConcertDto: CreateConcertDto = {
         name: 'Test Concert',
         des: 'Test Description',
@@ -44,7 +44,7 @@ describe('ConcertService', () => {
       expect(newConcert.des).toBe('Test Description');
       expect(newConcert.amount).toBe('100');
     });
-    it('should throw an error if provided with incorrect format', () => {
+    test('should throw an error if provided with incorrect format', () => {
       const createConcertDto: CreateConcertDto = {
         name: 'Test Concert',
         des: '',
@@ -58,7 +58,7 @@ describe('ConcertService', () => {
   });
 
   describe('findnum', () => {
-    it('should return correct reserve', () => {
+    test('should return correct reserve', () => {
       service.concerts[0].user_reserve.push({
         userid: 3,
         username: 'TestUser',
@@ -66,23 +66,23 @@ describe('ConcertService', () => {
       const result = service.findnum();
       expect(result.reserve_count).toBe(3);
     });
-    it('should return correct seats', () => {
+    test('should return correct seats', () => {
       const result = service.findnum();
       expect(result.seat_count).toBe(700);
     });
-    it('should return correct cancel', () => {
+    test('should return correct cancel', () => {
       const result = service.findnum();
       expect(result.cancel).toBe(2);
     });
   });
 
   describe('timeformat', () => {
-    it('should format time PM', () => {
+    test('should format time PM', () => {
       const timePM = '3/21/2024, 1:15:28 PM';
       const formattimePM = service.timeformat(timePM);
       expect(formattimePM).toBe('21/03/2024 13:15:28');
     });
-    it('should format time AM', () => {
+    test('should format time AM', () => {
       const timeAM = '3/21/2024, 9:33:23 AM';
       const formattimeAM = service.timeformat(timeAM);
       expect(formattimeAM).toBe('21/03/2024 09:33:23');
@@ -90,7 +90,7 @@ describe('ConcertService', () => {
   });
 
   describe('update', () => {
-    it('should update concert and add noti', () => {
+    test('should update concert and add noti', () => {
       const id = 1;
       const updateConcertDto: UpdateConcertDto = {
         userid: 3,
@@ -108,7 +108,7 @@ describe('ConcertService', () => {
       expect(notification).toBeDefined();
       expect(notification!.Action).toBe('reserve');
     });
-    it('should thorw an error if not fulfill data', () => {
+    test('should thorw an error if not fulfill data', () => {
       const id = 1;
       const updateConcertDto: UpdateConcertDto = {
         userid: undefined,
@@ -119,7 +119,7 @@ describe('ConcertService', () => {
       );
     });
 
-    it('should throw an error if user reserved', () => {
+    test('should throw an error if user reserved', () => {
       const id = 1;
       const updateConcertDto: UpdateConcertDto = {
         userid: 1,
@@ -132,7 +132,7 @@ describe('ConcertService', () => {
   });
 
   describe('cancel', () => {
-    it('should cancel concert and add noti', () => {
+    test('should cancel concert and add noti', () => {
       const concertId = 1;
       const userId = 1; 
       const updateConcertDto = { userid: userId };
@@ -145,14 +145,14 @@ describe('ConcertService', () => {
        expect(noti).toBeDefined();
        expect(noti.Action).toBe('Cancel')
     });
-    it('should throw error if concert not found', () =>{
+    test('should throw error if concert not found', () =>{
       const concertId = 999;
       const userId = 1;
       const updateConcertDto = {userid: userId};
 
       expect(() => service.cancle(concertId, updateConcertDto)).toThrow('not found Concert');
     });
-    it('should throw error if user not reserved', () =>{
+    test('should throw error if user not reserved', () =>{
       const concertId = 2;
       const userId = 1;
       const updateConcertDto = {userid: userId};
@@ -162,7 +162,7 @@ describe('ConcertService', () => {
   });
 
   describe('delete', () => {
-    it('should delete a concert success', () => {
+    test('should delete a concert success', () => {
       const concertId = 1;
       const result = service.delete(concertId);
       expect(result).toBe('200 OK'); 
@@ -170,7 +170,7 @@ describe('ConcertService', () => {
       expect(concert).toBeUndefined(); 
     });
 
-    it('should throw error if concert not found', () => {
+    test('should throw error if concert not found', () => {
       const concertId = 999;
       expect(() => service.delete(concertId)).toThrow('not found Concert');
     });
