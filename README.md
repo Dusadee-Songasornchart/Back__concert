@@ -46,10 +46,10 @@ have 2 table
    * Concertname
    * Action
 ### Method
-#### GET  I use method GET to get all data to show at pages
-#### PUT  I use method PUT to reserve and cancel concerts
-#### POST I use method POST to create post
-#### DEL  I use method DEL to delete concert
+* GET  I use method GET to get all data to show at pages
+* PUT  I use method PUT to reserve and cancel concerts
+* POST I use method POST to create post
+* DEL  I use method DEL to delete concert
 
 
 <p align="center">
