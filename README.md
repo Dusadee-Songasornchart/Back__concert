@@ -19,6 +19,11 @@ And now You can run project:
 ```bash
 npm run start
 ```
+## Dev Project
+
+```bash
+npm run start:dev
+```
 
 ## Test Project
 
