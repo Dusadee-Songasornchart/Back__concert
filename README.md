@@ -4,6 +4,9 @@ First, Clone form Github :
 ```bash
 git clone https://github.com/Dusadee-Songasornchart/Back__concert.git
 ```
+```bash
+cd Back__concert
+```
 
 Second download package with npm
 
