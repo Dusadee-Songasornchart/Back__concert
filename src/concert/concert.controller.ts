@@ -90,7 +90,6 @@ export class ConcertController {
       const concert = this.concertService.delete(+id);
       return res.status(200).json(concert);
     } catch (error) {
-      console.log(error)
       return res.status(404).json({ message: error.message });
     }
   }

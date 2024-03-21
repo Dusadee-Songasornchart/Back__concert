@@ -51,7 +51,6 @@ export class ConcertService {
 
   create(createConcertDto: CreateConcertDto) {
     const { name, des, amount } = createConcertDto;
-    console.log(createConcertDto)
 
     if (!name || !des || !amount) {
       throw new Error('incorrect format');
