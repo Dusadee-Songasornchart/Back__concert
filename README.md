@@ -58,7 +58,12 @@ have 2 table
 * PUT  I use method PUT to reserve and cancel concerts
 * POST I use method POST to create post
 * DEL  I use method DEL to delete concert
+## Q&A
+####  Give your opinion on how to optimize your website. If this website has a lot of information. And when more people have access The speed you gain will decrease.
+* if the website has a lot of information, I think it would be a good idea to add a page. Pages should be retrieved slowly, one set at a time, so as not to have too much information per page.
 
+#### Provide feedback on how to handle when many users want to reserve tickets at the same time. We wanted to make sure that at the concert no one would have to stand up during the performance.
+* I think there should be a queue system like if the first queue hasn't finished yet, the next person's reservation will be in the queue. Doing this will confirm that everyone must enter the reservation system one by one.
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
