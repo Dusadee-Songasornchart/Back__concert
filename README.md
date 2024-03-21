@@ -1,3 +1,57 @@
+## Start Project
+First, Clone form Github :
+
+```bash
+git clone https://github.com/Dusadee-Songasornchart/Back__concert.git
+```
+
+Second download package with npm
+
+```bash
+npm i
+```
+
+And now You can run project:
+
+```bash
+npm run start
+```
+
+## Test Project
+
+And now you can test
+
+```bash
+npm run test
+```
+
+If you want to see test
+
+```bash
+npm run test:watch
+```
+##Overview architecture
+have 2 table
+1. Concert
+   * id
+   * name
+   * describe
+   * amount
+   * user_reserve
+       * userid
+       * username
+2. Notification
+   * time
+   * User_name
+   * Concertname
+   * Action
+###Method
+####GET  I use method GET to get all data to show at pages
+####PUT  I use method PUT to reserve and cancel concerts
+####POST I use method POST to create post
+####DEL  I use method DEL to delete concert
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
